@@ -344,6 +344,15 @@ impl Run {
         if let Some(p) = &self.parsed_auto_splitter_settings {
             return Some(p.custom_settings.clone());
         }
+        let legacy_raw_xml = self.auto_splitter_settings().trim();
+        if !legacy_raw_xml.is_empty() {
+            let mut m = livesplit_auto_splitting::settings::Map::new();
+            m.insert(
+                "legacy_raw_xml".into(),
+                livesplit_auto_splitting::settings::Value::String(legacy_raw_xml.into()),
+            );
+            return Some(m);
+        }
         None
     }
 
@@ -356,7 +365,7 @@ impl Run {
         let p = &mut self.parsed_auto_splitter_settings;
         match p {
             None => {
-                if settings_map.is_empty() {
+                if settings_map.is_empty() || settings_map.get("legacy_raw_xml").is_some() {
                     return;
                 }
                 let mut a = AutoSplitterSettings::default();
