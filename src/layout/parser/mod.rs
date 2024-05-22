@@ -785,6 +785,9 @@ fn parse_general_settings(layout: &mut Layout, reader: &mut Reader<'_>) -> Resul
         "ShadowColor" => color(reader, |color| {
             settings.shadow_color = color;
         }),
+        "MousePassThroughWhileRunning" => {
+            parse_bool(reader, |b| settings.mouse_pass_through_while_running = b)
+        }
         _ => end_tag(reader),
     })?;
 

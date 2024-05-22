@@ -121,6 +121,7 @@ impl Layout {
         state.direction = settings.direction;
         state.drop_shadow = settings.drop_shadow;
         state.shadow_color = settings.shadow_color;
+        state.mouse_pass_through_while_running = settings.mouse_pass_through_while_running;
     }
 
     /// Calculates the layout's state based on the timer provided. You can use
