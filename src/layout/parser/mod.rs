@@ -783,6 +783,9 @@ fn parse_general_settings(layout: &mut Layout, reader: &mut Reader<'_>) -> Resul
         "ImageBlur" => percentage(reader, |v| image_blur = v),
         "DropShadows" => parse_bool(reader, |b| has_text_shadow = b),
         "ShadowsColor" => color(reader, |color| text_shadow_color = color),
+        "MousePassThroughWhileRunning" => {
+            parse_bool(reader, |b| settings.mouse_pass_through_while_running = b)
+        }
         _ => end_tag(reader),
     })?;
 
