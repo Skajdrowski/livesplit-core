@@ -2,9 +2,9 @@
 authors = ["Christopher Serr <christopher.serr@gmail.com>"]
 name = "bindings"
 version = "0.1.0"
-edition = "2018"
+edition = "2024"
 
 [dependencies]
 heck = "0.5.0"
-clap = { version = "4.0.2", features = ["derive"] }
-syn = { version = "2.0.0", default-features = false, features = ["parsing", "full", "printing"] }
+clap = { version = "4.5.32", features = ["derive"] }
+syn = { version = "2.0.100", default-features = false, features = ["parsing", "full", "printing"] }

@@ -7,8 +7,7 @@ repository = "https://github.com/LiveSplit/livesplit-core/tree/master/crates/liv
 license = "MIT OR Apache-2.0"
 description = "livesplit-hotkey provides cross-platform global hotkey hooks."
 keywords = ["speedrun", "timer", "livesplit", "hotkey", "keyboard"]
-edition = "2021"
-rust-version = "1.73"
+edition = "2024"
 
 [target.'cfg(windows)'.dependencies]
 windows-sys = { version = "0.59.0", features = [
@@ -20,19 +19,19 @@ windows-sys = { version = "0.59.0", features = [
 ], optional = true }
 
 [target.'cfg(target_os = "linux")'.dependencies]
-crossbeam-channel = { version = "0.5.6", optional = true }
-evdev = { version = "0.12.1", optional = true }
-mio = { version = "1.0.2", default-features = false, features = [
+crossbeam-channel = { version = "0.5.14", optional = true }
+evdev = { version = "0.12.2", optional = true }
+mio = { version = "1.0.3", default-features = false, features = [
     "os-ext",
     "os-poll",
 ], optional = true }
 nix = { version = "0.29.0", features = ["user"], optional = true }
 promising-future = { version = "0.2.4", optional = true }
-x11-dl = { version = "2.20.0", optional = true }
+x11-dl = { version = "2.21.0", optional = true }
 
 [target.'cfg(all(target_family = "wasm", target_os = "unknown"))'.dependencies]
-wasm-bindgen = { version = "0.2.54", optional = true }
-web-sys = { version = "0.3.65", default-features = false, features = [
+wasm-bindgen = { version = "0.2.100", optional = true }
+web-sys = { version = "0.3.77", default-features = false, features = [
     "EventTarget",
     "Gamepad",
     "GamepadButton",
@@ -40,12 +39,12 @@ web-sys = { version = "0.3.65", default-features = false, features = [
     "Navigator",
     "Window",
 ], optional = true }
-js-sys = { version = "0.3.65", default-features = false, optional = true }
+js-sys = { version = "0.3.77", default-features = false, optional = true }
 
 [dependencies]
 cfg-if = "1.0.0"
-serde = { version = "1.0.186", default-features = false, features = ["alloc"] }
-bitflags = "2.0.1"
+serde = { version = "1.0.219", default-features = false, features = ["alloc"] }
+bitflags = "2.9.0"
 
 [features]
 default = ["std"]

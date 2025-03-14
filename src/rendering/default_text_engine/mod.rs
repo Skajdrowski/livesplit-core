@@ -140,10 +140,11 @@ impl<P: SharedOwnership> TextEngine<P> {
             let mut digit_glyphs = [(ID::dummy(), 0); 10];
             let mut digit_width = 0.0;
             for (digit, glyph) in digit_glyphs.iter_mut().enumerate() {
+                let digit_slice = &[digit as u8 + b'0'];
                 if let Some((font_id, glyph_id, width)) = self.glyph_width(
                     // SAFETY: We iterate through the 10 ASCII digits. They are
                     // all valid UTF-8.
-                    unsafe { str::from_utf8_unchecked(&[digit as u8 + b'0']) },
+                    unsafe { str::from_utf8_unchecked(digit_slice) },
                     &attrs_list,
                 ) {
                     *glyph = (font_id, glyph_id);
