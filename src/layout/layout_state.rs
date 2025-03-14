@@ -32,6 +32,8 @@ pub struct LayoutState {
     pub text_color: Color,
     /// Ignore Mouse While Running and Not In Focus
     pub mouse_pass_through_while_running: bool,
+    /// Draws drop shadow
+    pub drop_shadow: bool,
 }
 
 #[cfg(feature = "std")]
