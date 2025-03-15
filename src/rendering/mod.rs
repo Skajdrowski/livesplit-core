@@ -568,7 +568,6 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
         key_color: Color,
         value_color: Color,
         display_two_rows: bool,
-        state: &LayoutState
     ) {
         let left_of_value_x = self.render_numbers(
             value,
@@ -579,7 +578,6 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
             solid(&value_color),
             shadow_offset,
             value_shadow,
-            state
         );
         let end_x = if display_two_rows {
             width
@@ -596,7 +594,6 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
             key_shadow,
             solid(&key_color),
             end_x - PADDING,
-            state
         );
     }
 
@@ -610,7 +607,6 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
         shadow_color: FillShader,
         shader: FillShader,
         max_x: f32,
-        state: &LayoutState
     ) -> f32 {
         let label = label.update(
             abbreviations,
@@ -619,7 +615,7 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
             (max_x - x) / scale,
         );
 
-        if state.drop_shadow {
+        if self.state.drop_shadow {
             self.scene.bottom_layer_mut().push(Entity::Label(
                 label.share(),
                 shadow_color,
@@ -646,7 +642,6 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
         shadow_offset: Pos,
         shadow_color: FillShader,
         max_x: f32,
-        state: &LayoutState
     ) -> f32 {
         let label = label.update(
             text,
@@ -654,7 +649,8 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
             &mut self.fonts.text.font,
             Some((max_x - x) / scale),
         );
-        if state.drop_shadow {
+
+        if self.state.drop_shadow {
             self.scene.bottom_layer_mut().push(Entity::Label(
                 label.share(),
                 shadow_color,
@@ -681,7 +677,6 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
         shader: FillShader,
         shadow_offset: Pos,
         shadow_color: FillShader,
-        state: &LayoutState
     ) {
         let label = label.update(
             text,
@@ -689,7 +684,7 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
             &mut self.fonts.text.font,
             Some((max_x - min_x) / scale),
         );
-        if state.drop_shadow {
+        if self.state.drop_shadow {
             self.scene.bottom_layer_mut().push(Entity::Label(
                 label.share(),
                 shadow_color,
@@ -729,7 +724,6 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
         shader: FillShader,
         shadow_offset: Pos,
         shadow_color: FillShader,
-        state: &LayoutState
     ) {
         let label = label.update(
             abbreviations,
@@ -737,7 +731,8 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
             &mut self.fonts.text.font,
             (max_x - min_x) / scale,
         );
-        if state.drop_shadow {
+
+        if self.state.drop_shadow {
             self.scene.bottom_layer_mut().push(Entity::Label(
                 label.share(),
                 shadow_color,
@@ -775,12 +770,11 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
         shader: FillShader,
         shadow_offset: Pos,
         shadow_color: FillShader,
-        state: &LayoutState
     ) -> f32 {
         let label = label.update(text, &mut self.handles, &mut self.fonts.text.font, None);
         let width = label.width(scale);
         
-        if state.drop_shadow {
+        if self.state.drop_shadow {
             self.scene.layer_mut(layer).push(Entity::Label(
                 label.share(),
                 shadow_color,
@@ -809,7 +803,6 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
         shadow_offset: Pos,
         shadow_color: FillShader,
         shader: FillShader,
-        state: &LayoutState
     ) {
         if centered {
             self.render_abbreviated_text_centered(
@@ -822,10 +815,9 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
                 shader,
                 shadow_offset,
                 shadow_color,
-                state
             );
         } else {
-            self.render_abbreviated_text_ellipsis(abbreviations, label, pos, scale, shadow_offset, shadow_color, shader, max_x, state);
+            self.render_abbreviated_text_ellipsis(abbreviations, label, pos, scale, shadow_offset, shadow_color, shader, max_x);
         }
     }
 
@@ -839,12 +831,11 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
         shader: FillShader,
         shadow_offset: Pos,
         shadow_color: FillShader,
-        state: &LayoutState
     ) -> f32 {
         let label = label.update(text, &mut self.handles, &mut self.fonts.times.font, None);
         let width = label.width(scale);
 
-        if state.drop_shadow {
+        if self.state.drop_shadow {
             self.scene.layer_mut(layer).push(Entity::Label(
                 label.share(),
                 shadow_color,
@@ -870,11 +861,10 @@ impl<A: ResourceAllocator> RenderContext<'_, A> {
         shader: FillShader,
         shadow_offset: Pos,
         shadow_color: FillShader,
-        state: &LayoutState
     ) -> f32 {
         let label = label.update(text, &mut self.handles, &mut self.fonts.timer.font, None);
         let width = label.width(scale);
-        if state.drop_shadow {
+        if self.state.drop_shadow {
             self.scene.layer_mut(layer).push(Entity::Label(
                 label.share(),
                 shadow_color,
